@@ -61,20 +61,22 @@ services:
     ports:
       - 9000:9000
 
-# Stores service data and establishes a connection with the main system. 
+# Stores service data and establishes a connection with the main system.
 volumes: 
   mariadb_data: 
-    # driver:  local 
-    # driver_opts: 
-    #   type:  none 
-    #   device:  /home/data/mysql 
-    #   o:   bind 
-  wordpress_data: 
-    # driver:  local 
-    # driver_opts: 
-    #   type:  none 
-    #   device:  /home/data/wordpress 
-    #   o:   bind 
+    driver:  local
+    driver_opts: 
+      type:  none 
+      # device:  /home/data/mysql
+      device:  /Users/ysahih/Desktop/docker/tmp/m
+      o:   bind 
+  wordpress_data:
+    driver:  local 
+    driver_opts: 
+      type:  none 
+      # device:  /home/data/wordpress
+      device:  /Users/ysahih/Desktop/docker/tmp/w
+      o:   bind 
 
 # Connects to default network drive 
 networks: 
