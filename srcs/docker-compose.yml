@@ -25,7 +25,7 @@ services:
     networks: 
       -  network
     ports:
-      - 3300:3300
+      - 3306:3306
     #!mapping  
 
   wordpress: 
@@ -48,15 +48,15 @@ volumes:
     driver:  local
     driver_opts: 
       type:  none 
-      device:  /home/data/mysql
-      # device:  /Users/ysahih/Desktop/docker/tmp/m
+      # device:  /home/data/mysql
+      device:  /Users/ysahih/Desktop/docker/tmp/m
       o:   bind 
   wordpress_data:
     driver:  local 
     driver_opts: 
       type:  none 
-      device:  /home/data/wordpress
-      # device:  /Users/ysahih/Desktop/docker/tmp/w
+      # device:  /home/data/wordpress
+      device:  /Users/ysahih/Desktop/docker/tmp/w
       o:   bind 
 
 networks: 
