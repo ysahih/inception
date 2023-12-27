@@ -17,7 +17,7 @@ services:
   mariadb:
     container_name:  mariadb 
     build:  ./requirements/mariadb
-    restart: aon-failure
+    restart: on-failure
     env_file: 
       -  .env 
     volumes: 
@@ -45,19 +45,19 @@ services:
 
 volumes: 
   mariadb_data: 
-  #   driver:  local
-  #   driver_opts: 
-  #     type:  none 
-  #     # device:  /home/data/mysql
-  #     device:  /Users/ysahih/Desktop/docker/tmp/m
-  #     o:   bind 
+    driver:  local
+    driver_opts: 
+      type:  none 
+      device:  /home/data/mysql
+      # device:  /Users/ysahih/Desktop/docker/tmp/m
+      o:   bind 
   wordpress_data:
-    # driver:  local 
-    # driver_opts: 
-    #   type:  none 
-    #   # device:  /home/data/wordpress
-    #   device:  /Users/ysahih/Desktop/docker/tmp/w
-    #   o:   bind 
+    driver:  local 
+    driver_opts: 
+      type:  none 
+      device:  /home/data/wordpress
+      # device:  /Users/ysahih/Desktop/docker/tmp/w
+      o:   bind 
 
 networks: 
   network: 
