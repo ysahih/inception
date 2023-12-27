@@ -1,57 +1,39 @@
-# File version 
 version:  '3' 
 
-# Services (Container) settings 
 services: 
-
   nginx: 
-    container_name:  nginx 
-
-    # Dockerfile file path 
-    build:  ./requirements/nginx 
-
-    # Specifies the containers to which the container is connected before starting it.
+    container_name:  nginx
+    build:  ./requirements/nginx
     depends_on: 
       -   wordpress
-    
-    # Listening: Ports to be forwarded 
     ports: 
       -   443:443 
-    
-    # Directory where the files will be stored 
     volumes: 
-      -   wordpress_data:/var/www/html 
-
-    # Automatically restarts the container 
-    restart:  always 
-
-    # The white that the container is connected to
+      -   wordpress_data:/var/www/html
+    restart:  on-failure 
     networks: 
       -  network 
 
-  mariadb: 
+  mariadb:
     container_name:  mariadb 
-    build:  ./requirements/mariadb 
+    build:  ./requirements/mariadb
+    restart: aon-failure
+    env_file: 
+      -  .env 
     volumes: 
       -  mariadb_data:/var/lib/mysql 
     networks: 
-      -  network 
-    restart:  always 
+      -  network
     ports:
-      - 3306:3303
-    #!mapping 
-    # Assigns the data in the .env file to environment variables 
-    env_file: 
-      -   .env 
+      - 3300:3300
+    #!mapping  
 
   wordpress: 
     container_name:  wordpress 
     depends_on: 
       -  mariadb 
-    build: 
-      context:  ./requirements/wordpress 
-      dockerfile:  Dockerfile 
-    restart:  always 
+    build: ./requirements/wordpress
+    restart:  on-failure 
     env_file: 
       -   .env 
     volumes: 
@@ -61,24 +43,22 @@ services:
     ports:
       - 9000:9000
 
-# Stores service data and establishes a connection with the main system.
 volumes: 
   mariadb_data: 
-    driver:  local
-    driver_opts: 
-      type:  none 
-      # device:  /home/data/mysql
-      device:  /Users/ysahih/Desktop/docker/tmp/m
-      o:   bind 
+  #   driver:  local
+  #   driver_opts: 
+  #     type:  none 
+  #     # device:  /home/data/mysql
+  #     device:  /Users/ysahih/Desktop/docker/tmp/m
+  #     o:   bind 
   wordpress_data:
-    driver:  local 
-    driver_opts: 
-      type:  none 
-      # device:  /home/data/wordpress
-      device:  /Users/ysahih/Desktop/docker/tmp/w
-      o:   bind 
+    # driver:  local 
+    # driver_opts: 
+    #   type:  none 
+    #   # device:  /home/data/wordpress
+    #   device:  /Users/ysahih/Desktop/docker/tmp/w
+    #   o:   bind 
 
-# Connects to default network drive 
 networks: 
   network: 
     driver: bridge

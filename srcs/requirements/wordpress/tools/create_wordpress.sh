@@ -1,9 +1,8 @@
 sleep 5
 
-
-if [ -f var/www/html/wp-config.php]
+if [ -f /var/www/html/wp-config.php ]
 then
-    echo "kayn"
+    echo "wordpress already installed"
 else
     sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
 
@@ -19,4 +18,5 @@ else
     wp core install --url=$DOMAIN_NAME --title="$TITLE" --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASS --admin_email=$ADMIN_EMAIL --allow-root
     wp user create --path=/var/www/html/ $USER_NAME $USER_EMAIL --user_pass=$USER_PASS --allow-root
 fi
+
 php-fpm7.4 -F
