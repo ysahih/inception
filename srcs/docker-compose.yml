@@ -26,14 +26,13 @@ services:
       -  network
     ports:
       - 3306:3306
-    #!mapping  
 
   wordpress: 
-    container_name:  wordpress 
+    container_name: wordpress 
     depends_on: 
-      -  mariadb 
+      - mariadb 
     build: ./requirements/wordpress
-    restart:  on-failure 
+    restart: on-failure 
     env_file: 
       -   .env 
     volumes: 
@@ -48,16 +47,14 @@ volumes:
     driver:  local
     driver_opts: 
       type:  none 
-      # device:  /home/data/mysql
-      device:  /Users/ysahih/Desktop/docker/tmp/m
-      o:   bind 
+      device: /home/ysahih/data/mysql
+      o: bind 
   wordpress_data:
     driver:  local 
     driver_opts: 
       type:  none 
-      # device:  /home/data/wordpress
-      device:  /Users/ysahih/Desktop/docker/tmp/w
-      o:   bind 
+      device: /home/ysahih/data/wordpress
+      o: bind
 
 networks: 
   network: 
